@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Traffic Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🚦 Smart Traffic Dashboard</h1>
+
+    <div class="grid">
+
+        <!-- INPUT -->
+        <div class="card">
+            <h2>Traffic Input</h2>
+
+            <input id="north" placeholder="North Vehicles">
+            <input id="south" placeholder="South Vehicles">
+            <input id="east" placeholder="East Vehicles">
+            <input id="west" placeholder="West Vehicles">
+
+            <select id="emergency">
+                <option value="">No Emergency</option>
+                <option value="NORTH">North</option>
+                <option value="SOUTH">South</option>
+                <option value="EAST">East</option>
+                <option value="WEST">West</option>
+            </select>
+
+            <button onclick="startSystem()">Start System</button>
+        </div>
+
+        <!-- SIGNAL -->
+        <div class="card center">
+            <h2>Signal</h2>
+
+            <div class="signal">
+                <div id="red" class="light"></div>
+                <div id="yellow" class="light"></div>
+                <div id="green" class="light"></div>
+            </div>
+
+            <h2 id="timer"></h2>
+        </div>
+
+        <!-- GRAPH -->
+        <div class="card">
+            <h2>Traffic Analysis</h2>
+            <canvas id="chart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
