@@ -6,9 +6,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/trafficDB")
-.then(()=>console.log("MongoDB Connected"))
-.catch(err=>console.log(err));
+mongoose.connect("mongodb://varnika1204_db_user:hyfpStysrWdsBXhT@ac-pm0gbji-shard-00-00.egcttsi.mongodb.net:27017,ac-pm0gbji-shard-00-01.egcttsi.mongodb.net:27017,ac-pm0gbji-shard-00-02.egcttsi.mongodb.net:27017/trafficDB?ssl=true&replicaSet=atlas-nrqw5w-shard-0&authSource=admin&retryWrites=true&w=majority")
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
 
 // Schema
 const Traffic = mongoose.model("Traffic", {
@@ -70,4 +70,8 @@ app.post("/traffic", async (req, res) => {
     res.json({ signal, time });
 });
 
-app.listen(3000, () => console.log("Server running at http://localhost:3000"));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
