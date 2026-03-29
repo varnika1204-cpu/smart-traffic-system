@@ -1,11 +1,21 @@
 let chart;
 let running = false;
 
-// Start system (auto loop)
+// ✅ DOM ELEMENTS (VERY IMPORTANT)
+const north = document.getElementById("north");
+const south = document.getElementById("south");
+const east = document.getElementById("east");
+const west = document.getElementById("west");
+const emergency = document.getElementById("emergency");
+const timer = document.getElementById("timer");
+
+// ✅ BASE URL (FIX FOR DEPLOYMENT)
+const BASE_URL = window.location.origin;
+
+// Start system
 function startSystem() {
     if (running) return;
     running = true;
-
     runCycle();
 }
 
@@ -19,24 +29,28 @@ async function runCycle() {
         emergency: emergency.value
     };
 
-    let res = await fetch("/traffic", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    });
+    try {
+        let res = await fetch(`${BASE_URL}/traffic`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
 
-    let result = await res.json();
+        let result = await res.json();
 
-    updateChart(data);
-    await runSignal(result.signal, result.time);
+        updateChart(data);
+        await runSignal(result.signal, result.time);
 
-    if (running) runCycle(); // loop
+        if (running) runCycle();
+
+    } catch (err) {
+        console.error("Fetch error:", err);
+    }
 }
 
 // Signal sequence
 function runSignal(signal, time) {
     return new Promise(resolve => {
-
         let t = time;
 
         let interval = setInterval(() => {
